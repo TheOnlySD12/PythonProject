@@ -9,8 +9,6 @@ st.title("Scan")
 #  st.image(image)
 
 image = st.camera_input("")
-if image:
-    st.image(image)
 
 if st.button("Back"):
     st.switch_page("main.py")
