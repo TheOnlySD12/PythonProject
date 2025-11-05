@@ -8,7 +8,7 @@ st.title("Scan")
 #if image:
 #  st.image(image)
 
-image = st.camera_input()
+image = st.camera_input("")
 if image:
     st.image(image)
 
