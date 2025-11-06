@@ -1,1 +1,1 @@
-streamlit-camera-input-live
+streamlit-webrtc

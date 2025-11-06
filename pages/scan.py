@@ -1,12 +1,9 @@
 import streamlit as st
-from camera_input_live import camera_input_live
+from streamlit_webrtc import webrtc_streamer
 
 st.title("Scan")
 
-image = camera_input_live()
-
-if image:
-  st.image(image)
+webrtc_streamer(key="scan")
 
 if st.button("Back"):
     st.switch_page("main.py")
