@@ -1,26 +1,20 @@
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer
-from pyzbar.pyzbar import decode
+import cv2
 
 st.title("Scan")
 
 def check(text):
-    return text
+    st.write(text)
 
 
 def video_frame_callback(frame):
     img = frame.to_ndarray(format="bgr24")
 
-    decoded_objects = decode(img)
+    info, bbox, _ = cv2.QRCodeDetector().detectAndDecode(img)
 
-    if decoded_objects:
-        try:
-            text = decoded_objects[0].data.decode('utf-8')
-            st.write(text)
-
-
-        except Exception as e:
-            st.error(f"Error decoding QR code: {e}")
+    if bbox is not None:
+        check(info)
 
     return frame
 
