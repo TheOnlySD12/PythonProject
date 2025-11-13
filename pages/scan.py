@@ -4,6 +4,7 @@ import cv2
 
 st.title("Scan")
 
+
 def check(text):
     st.write(text)
 
@@ -13,8 +14,9 @@ def video_frame_callback(frame):
 
     info, bbox, _ = cv2.QRCodeDetector().detectAndDecode(img)
 
-    if bbox is not None:
-        check(info)
+    if len(info) > 0:
+        print(info)
+        st.write(info)
 
     return frame
 
