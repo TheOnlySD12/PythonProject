@@ -4,19 +4,24 @@ import cv2
 
 st.title("Scan")
 
+lastElev = ""
+
+
 def check(text):
-    st.write(text)
+    global lastElev
+    if lastElev != text:
+        print(text)
+        st.info(text)
+        lastElev = text
 
 
 def video_frame_callback(frame):
     img = frame.to_ndarray(format="bgr24")
-    st.write("asd")
 
     info, bbox, _ = cv2.QRCodeDetector().detectAndDecode(img)
 
     if len(info) > 0:
-        print(info)
-        st.write(info)
+        check(info)
 
     return frame
 
