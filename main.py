@@ -13,6 +13,7 @@ st.markdown(
 )
 
 if st.button("Send balloons!"):
+    print("ad")
     st.balloons()
 
 if st.button("Scan"):
