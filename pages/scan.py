@@ -4,27 +4,22 @@ import cv2
 
 st.title("Scan")
 
-success = False
-
-
 def check(text):
     st.write(text)
 
 
 def video_frame_callback(frame):
-    global success
     img = frame.to_ndarray(format="bgr24")
+    st.write("asd")
 
     info, bbox, _ = cv2.QRCodeDetector().detectAndDecode(img)
 
     if len(info) > 0:
         print(info)
-        success = True
         st.write(info)
 
     return frame
 
-print(success)
 
 webrtc_streamer(
     key="scan",
