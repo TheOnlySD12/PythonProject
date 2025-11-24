@@ -1,7 +1,5 @@
 import streamlit as st
 
-#TODO: download forms de azi
-
 st.title("Bine ai venit 👋")
 st.markdown(
     """ 

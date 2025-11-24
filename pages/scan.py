@@ -1,13 +1,22 @@
+from datetime import datetime
 import streamlit as st
 from streamlit_webrtc import WebRtcMode, webrtc_streamer
 import cv2
 import queue
+import gspread
+
+link = "https://docs.google.com/spreadsheets/d/11ambo2e9S4bbq_OL4FrGM9VUE9Rh6KS5IthFqbR0iTQ"
 
 st.title("Scan")
 
 qr_code = queue.Queue()
+gc = gspread.service_account()
+tabel = gc.open_by_url(link).get_worksheet(0)
 
 last = None
+
+if st.session_state.day is None:
+    st.session_state.day = datetime.today().weekday() + 6
 
 def check(text):
     global last
@@ -42,7 +51,8 @@ if st.checkbox("Scaneaza", value=True):
         labels_placeholder = st.empty()
         while True:
             result = qr_code.get()
-            labels_placeholder.write(result)
+            cell = tabel.find(result).row
+            labels_placeholder.write(tabel.cell(cell, st.session_state.day).value)
 
 if st.button("Back"):
     st.switch_page("main.py")
