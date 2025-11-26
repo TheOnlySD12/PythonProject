@@ -10,13 +10,23 @@ link = "https://docs.google.com/spreadsheets/d/11ambo2e9S4bbq_OL4FrGM9VUE9Rh6KS5
 st.title("Scan")
 
 qr_code = queue.Queue()
-gc = gspread.service_account()
-tabel = gc.open_by_url(link).get_worksheet(0)
+#gc = gspread.api_key("aici")
+#tabel = gc.open_by_url(link).get_worksheet(0)
 
 last = None
 
-if st.session_state.day is None:
+if 'day' not in st.session_state:
     st.session_state.day = datetime.today().weekday() + 6
+
+@st.dialog("Scan")
+def show(x):
+    #if masa and desert:
+    #    st.write("Elevul are si masa si desert")
+    #elif masa:
+    #    st.write("Elevul are doar masa")
+    st.write(f"Elevul e {x}")
+    if st.button("Submit"):
+        st.rerun()
 
 def check(text):
     global last
@@ -48,11 +58,12 @@ webrtc_ctx = webrtc_streamer(
 
 if st.checkbox("Scaneaza", value=True):
     if webrtc_ctx.state.playing:
-        labels_placeholder = st.empty()
         while True:
             result = qr_code.get()
-            cell = tabel.find(result).row
-            labels_placeholder.write(tabel.cell(cell, st.session_state.day).value)
+
+            #cell = tabel.find(result).row
+            #placeholder.write(tabel.cell(cell, st.session_state.day).value)
+            show(result)
 
 if st.button("Back"):
     st.switch_page("main.py")
