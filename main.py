@@ -1,6 +1,7 @@
 import streamlit as st
 
 st.title("Bine ai venit 👋")
+
 st.markdown(
     """ 
     Aici e pagina principala
